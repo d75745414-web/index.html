@@ -8,134 +8,348 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
-body{background:radial-gradient(circle at 50% 20%, #0c1b3b, #02060f 70%);color:white;min-height:100vh;overflow-x:hidden;opacity:0;transform:translateY(30px);animation:fadeInUp 1s forwards ease-out;}
-@keyframes fadeInUp{to{opacity:1; transform:translateY(0);}}
-body::before{content:"";position:fixed;width:100%;height:100%;background-image:radial-gradient(white 1px, transparent 1px);background-size:40px 40px;opacity:.12;z-index:-1;}
-.nav{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.logo{font-size:26px;font-weight:700;background:linear-gradient(90deg,#6aa8ff,#7db0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
-.menu{font-size:32px;cursor:pointer;display:inline-block;transition:0.3s;}
-.menu:hover{color:#6aa8ff;}
-.panel{position:fixed;top:0;left:50%;transform:translate(-50%, -120%);width:90%;max-width:400px;background:linear-gradient(180deg,#0b162d,#02060f);border:1px solid rgba(120,150,255,.15);border-radius:20px;padding:30px;transition:transform 0.6s cubic-bezier(0.65,0,0.35,1);box-shadow:0 0 40px rgba(0,0,0,.6);z-index:100;}
-.panel.show{transform:translate(-50%, 90px);}
+
+body{
+background:radial-gradient(circle at 50% 20%, #0c1b3b, #02060f 70%);
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:radial-gradient(white 1px, transparent 1px);
+background-size:40px 40px;
+opacity:.12;
+z-index:-1;
+}
+
+.nav{
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 30px;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+font-size:26px;
+font-weight:700;
+background:linear-gradient(90deg,#6aa8ff,#7db0ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+cursor:pointer;
+}
+
+.menu{
+font-size:32px;
+cursor:pointer;
+display:inline-block;
+}
+
+.panel{
+position:fixed;
+top:0;
+left:50%;
+transform:translate(-50%,-120%);
+width:90%;
+max-width:400px;
+background:linear-gradient(180deg,#0b162d,#02060f);
+border:1px solid rgba(120,150,255,.15);
+border-radius:20px;
+padding:30px;
+transition:transform .6s cubic-bezier(.65,0,.35,1);
+box-shadow:0 0 40px rgba(0,0,0,.6);
+z-index:100;
+}
+
+.panel.show{transform:translate(-50%,90px);}
+
 .panel-section{margin-bottom:25px;}
-.panel-section h3{font-size:14px;text-transform:uppercase;color:#6a7d99;margin-bottom:10px;letter-spacing:1px;}
-.panel a{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:16px;color:#cdd6ff;text-decoration:none;transition:0.3s;}
+
+.panel-section h3{
+font-size:14px;
+text-transform:uppercase;
+color:#6a7d99;
+margin-bottom:10px;
+}
+
+.panel a{
+display:flex;
+align-items:center;
+gap:12px;
+padding:10px 0;
+font-size:16px;
+color:#cdd6ff;
+text-decoration:none;
+}
+
 .panel a:hover{color:#6aa8ff;}
-.panel a i{width:20px;}
-.container{max-width:600px;text-align:center;padding:60px 25px;}
-.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(120,160,255,.4);padding:12px 24px;border-radius:40px;margin-bottom:35px;color:#b9c7ff;font-size:16px;background:rgba(30,60,120,.2);}
-.badge-dot{width:8px;height:8px;background:#6aa8ff;border-radius:50%;}
-.title{font-size:64px;font-weight:800;background:linear-gradient(180deg,#a7c9ff,#5f93ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;}
-.subtitle{font-size:20px;letter-spacing:3px;color:#9fb2d8;margin-bottom:30px;}
-.highlight{background:linear-gradient(90deg,#6aa8ff,#3b82ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;}
-.desc{color:#8e9db8;font-size:18px;line-height:1.6;margin-bottom:45px;}
-.secondary{width:100%;padding:18px;font-size:18px;border-radius:14px;background:transparent;border:1px solid rgba(120,150,255,.3);color:#cdd6ff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;}
-.section{max-width:1000px;margin:60px auto;padding:0 20px;display:none;opacity:0;transform:translateY(20px);transition:all 0.5s ease;}
-.section.active{display:block;opacity:1;transform:translateY(0);}
-.section h1{text-align:center;font-size:48px;font-weight:800;background:linear-gradient(180deg,#a7c9ff,#5f93ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:50px;}
-.grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));gap:30px;}
-.video-container{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:20px;box-shadow:0 0 25px rgba(0,0,0,.6);transition:transform 0.3s;}
-.video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:20px;}
-.video-container:hover{transform:scale(1.03);}
-.review-list,.tos-list{display:flex;flex-direction:column;gap:20px;}
-.review-card,.tos-card{padding:20px;background:rgba(30,60,120,.3);border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.5);font-size:18px;line-height:1.4;}
+
+.container{
+max-width:650px;
+width:100%;
+text-align:center;
+padding:80px 25px;
+margin-top:60px;
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:10px;
+border:1px solid rgba(120,160,255,.4);
+padding:12px 24px;
+border-radius:40px;
+margin-bottom:35px;
+color:#b9c7ff;
+font-size:16px;
+background:rgba(30,60,120,.2);
+}
+
+.badge-dot{
+width:8px;
+height:8px;
+background:#6aa8ff;
+border-radius:50%;
+}
+
+.title{
+font-size:64px;
+font-weight:800;
+background:linear-gradient(180deg,#a7c9ff,#5f93ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:20px;
+}
+
+.subtitle{
+font-size:20px;
+letter-spacing:3px;
+color:#9fb2d8;
+margin-bottom:30px;
+}
+
+.highlight{
+background:linear-gradient(90deg,#6aa8ff,#3b82ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+font-weight:700;
+}
+
+.desc{
+color:#8e9db8;
+font-size:18px;
+line-height:1.6;
+margin-bottom:45px;
+}
+
+.secondary{
+width:100%;
+padding:18px;
+font-size:18px;
+border-radius:14px;
+background:transparent;
+border:1px solid rgba(120,150,255,.3);
+color:#cdd6ff;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+
+.section{
+max-width:1000px;
+width:100%;
+margin:60px auto;
+padding:0 20px;
+display:none;
+}
+
+.section.active{display:block;}
+
+.section h1{
+text-align:center;
+font-size:48px;
+font-weight:800;
+background:linear-gradient(180deg,#a7c9ff,#5f93ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+margin-bottom:50px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+.video-container{
+position:relative;
+padding-bottom:56.25%;
+height:0;
+overflow:hidden;
+border-radius:20px;
+box-shadow:0 0 25px rgba(0,0,0,.6);
+}
+
+.video-container iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:none;
+}
+
+.review-list,.tos-list{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.review-card,.tos-card{
+padding:20px;
+background:rgba(30,60,120,.3);
+border-radius:15px;
+box-shadow:0 0 20px rgba(0,0,0,.5);
+font-size:18px;
+}
+
 </style>
 </head>
 <body>
+
 <div class="nav">
-  <div class="logo" onclick="goHome()">ZYPHER</div>
-  <span class="material-icons menu" onclick="toggleMenu()">menu</span>
+<div class="logo" onclick="goHome()">ZYPHER</div>
+<span class="material-icons menu" onclick="toggleMenu()">menu</span>
 </div>
+
 <div class="panel" id="panel">
-  <div class="panel-section">
-    <h3>Community</h3>
-    <a href="#" onclick="showShowcases()"><i class="fa-solid fa-video"></i> Showcases</a>
-    <a href="#" onclick="showReviews()"><i class="fa-solid fa-star"></i> Reviews</a>
-  </div>
-  <div class="panel-section">
-    <h3>Legal</h3>
-    <a href="#" onclick="showTOS()"><i class="fa-solid fa-file-contract"></i> Terms Of Service</a>
-  </div>
-  <div class="panel-section">
-    <h3>Support</h3>
-    <a href="https://discord.gg/PdnmRF7JN4" target="_blank"><i class="fa-brands fa-discord"></i> Discord Server</a>
-  </div>
+<div class="panel-section">
+<h3>Community</h3>
+<a href="#" onclick="showShowcases()"><i class="fa-solid fa-video"></i>Showcases</a>
+<a href="#" onclick="showReviews()"><i class="fa-solid fa-star"></i>Reviews</a>
 </div>
+
+<div class="panel-section">
+<h3>Legal</h3>
+<a href="#" onclick="showTOS()"><i class="fa-solid fa-file-contract"></i>Terms Of Service</a>
+</div>
+
+<div class="panel-section">
+<h3>Support</h3>
+<a href="https://discord.gg/PdnmRF7JN4" target="_blank"><i class="fa-brands fa-discord"></i>Discord Server</a>
+</div>
+</div>
+
 <div class="container" id="landing">
-  <div class="badge"><div class="badge-dot"></div> Trusted by 170+ members</div>
-  <div class="title">Zypher</div>
-  <div class="subtitle">THE <span class="highlight">BEST SERVERSIDE</span> ON THE MARKET</div>
-  <div class="desc">The best internal serverside across 60+ Roblox games, and 24/7 support from moderators.</div>
-  <a href="https://discord.gg/PdnmRF7JN4" target="_blank"><button class="secondary"><i class="fa-brands fa-discord"></i> Join Community</button></a>
+
+<div class="badge">
+<div class="badge-dot"></div>
+Trusted by 169+ members
 </div>
 
-<div class="section showcases" id="showcases">
-  <h1>Showcases</h1>
-  <div class="grid">
-    <div class="video-container"><iframe src="https://www.youtube.com/embed/jrmmyzVgbyM" allowfullscreen></iframe></div>
-    <div class="video-container"><iframe src="https://www.youtube.com/embed/Q1oaHGf1Zuc" allowfullscreen></iframe></div>
-    <div class="video-container"><iframe src="https://www.youtube.com/embed/whdBhQ_2dLU" allowfullscreen></iframe></div>
-    <div class="video-container"><iframe src="https://www.youtube.com/embed/GS4dL_-XbG4" allowfullscreen></iframe></div>
-    <div class="video-container"><iframe src="https://www.youtube.com/embed/3tux-bKwBtI" allowfullscreen></iframe></div>
-  </div>
+<div class="title">Zypher</div>
+
+<div class="subtitle">
+THE <span class="highlight">BEST SERVERSIDE</span> ON THE MARKET
 </div>
 
-<div class="section reviews" id="reviews">
-  <h1>Reviews</h1>
-  <div class="review-list">
-    <div class="review-card">8/10 good mods and owners, decent games, cheap, ui could be a bit better</div>
-    <div class="review-card">5/10 UI good but no good games, could be a bit better</div>
-    <div class="review-card">BRO THIS IS COOL SHOULD DEFO BUY!</div>
-    <div class="review-card">10/10 I don't have it but it's soooooo good</div>
-    <div class="review-card">Showcasing, it too bright and is too transparent, also the script has 2 copies which bugs me when executing. But it's still a 9.6/10 needs a little bit of work</div>
-    <div class="review-card">10/10 tuff UI tuff execution</div>
-    <div class="review-card">10/10 best logging games ever</div>
-  </div>
+<div class="desc">
+The best internal serverside across 60+ Roblox games, and 24/7 support from moderators.
 </div>
 
-<div class="section tos" id="tos">
-  <h1>Terms Of Service</h1>
-  <div class="tos-list">
-    <div class="tos-card">1 - No stealing games for your ss</div>
-    <div class="tos-card">2 - No NSFW Scripts (as long as they're not too sexual)</div>
-    <div class="tos-card">3 - No Nazi shit Scripts (Blacklist)</div>
-    <div class="tos-card">4 - No Gore Scripts (Blacklist)</div>
-    <div class="tos-card">5 - No Snitching (Warn)</div>
-    <div class="tos-card">6 - No skiddy guis</div>
-    <div class="tos-card">7 - No mass banning/kicking</div>
-    <div class="tos-card">8 - No using any other executors other than Zypher</div>
-  </div>
+<a href="https://discord.gg/PdnmRF7JN4" target="_blank">
+<button class="secondary">
+<i class="fa-brands fa-discord"></i>
+Join Community
+</button>
+</a>
+
+</div>
+
+<div class="section" id="showcases">
+<h1>Showcases</h1>
+<div class="grid">
+<div class="video-container"><iframe src="https://www.youtube.com/embed/jrmmyzVgbyM"></iframe></div>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/Q1oaHGf1Zuc"></iframe></div>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/whdBhQ_2dLU"></iframe></div>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/GS4dL_-XbG4"></iframe></div>
+<div class="video-container"><iframe src="https://www.youtube.com/embed/3tux-bKwBtI"></iframe></div>
+</div>
+</div>
+
+<div class="section" id="reviews">
+<h1>Reviews</h1>
+<div class="review-list">
+<div class="review-card">8/10 good mods and owners, decent games, cheap, ui could be a bit better</div>
+<div class="review-card">5/10 Ui good but no good games could be a bit better</div>
+<div class="review-card">BRO THIS IS COOL SHOULD DEFO BUY!</div>
+<div class="review-card">10/10 i dont have it but its soooooo good</div>
+<div class="review-card">Showcasing, it too bright and is too transparent, also the script has 2 copies which bugs me when executing. But its still a 9.6/10 needs a little bit of work</div>
+<div class="review-card">10/10 tuff ui tuff execution</div>
+<div class="review-card">10/10 best logging games ever</div>
+</div>
+</div>
+
+<div class="section" id="tos">
+<h1>Terms Of Service</h1>
+<div class="tos-list">
+<div class="tos-card">1 - No stealing games for your ss</div>
+<div class="tos-card">2 - No NSFW Scripts (as long as there not too Sexual)</div>
+<div class="tos-card">3 - No Nazi Scripts (Blacklist)</div>
+<div class="tos-card">4 - No Gore Scripts (Blacklist)</div>
+<div class="tos-card">5 - No Snitching (Warn)</div>
+<div class="tos-card">6 - No skiddy guis</div>
+<div class="tos-card">7 - No mass banning/kicking</div>
+<div class="tos-card">8 - No using any other executors other than zypher</div>
+</div>
 </div>
 
 <script>
-function toggleMenu(){document.getElementById("panel").classList.toggle("show");}
+
+function toggleMenu(){
+document.getElementById("panel").classList.toggle("show")
+}
+
 function showShowcases(){
-  document.getElementById("landing").style.display="none";
-  document.getElementById("reviews").classList.remove("active");
-  document.getElementById("tos").classList.remove("active");
-  document.getElementById("showcases").classList.add("active");
-  document.getElementById("panel").classList.remove("show");
+hideAll()
+document.getElementById("showcases").classList.add("active")
 }
+
 function showReviews(){
-  document.getElementById("landing").style.display="none";
-  document.getElementById("showcases").classList.remove("active");
-  document.getElementById("tos").classList.remove("active");
-  document.getElementById("reviews").classList.add("active");
-  document.getElementById("panel").classList.remove("show");
+hideAll()
+document.getElementById("reviews").classList.add("active")
 }
+
 function showTOS(){
-  document.getElementById("landing").style.display="none";
-  document.getElementById("showcases").classList.remove("active");
-  document.getElementById("reviews").classList.remove("active");
-  document.getElementById("tos").classList.add("active");
-  document.getElementById("panel").classList.remove("show");
+hideAll()
+document.getElementById("tos").classList.add("active")
 }
+
 function goHome(){
-  document.getElementById("showcases").classList.remove("active");
-  document.getElementById("reviews").classList.remove("active");
-  document.getElementById("tos").classList.remove("active");
-  document.getElementById("landing").style.display="block";
+hideAll()
+document.getElementById("landing").style.display="block"
 }
+
+function hideAll(){
+document.getElementById("landing").style.display="none"
+document.getElementById("showcases").classList.remove("active")
+document.getElementById("reviews").classList.remove("active")
+document.getElementById("tos").classList.remove("active")
+document.getElementById("panel").classList.remove("show")
+}
+
 </script>
+
 </body>
-  </html>
+</html>
