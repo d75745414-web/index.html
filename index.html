@@ -4,146 +4,327 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zypher</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI, Arial, sans-serif;}
-body{background:radial-gradient(circle at 50% 20%, #0c1b3b, #02060f 70%);color:white;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column;align-items:center;}
-body::before{content:"";position:fixed;width:100%;height:100%;background-image:radial-gradient(white 1px, transparent 1px);background-size:40px 40px;opacity:.12;z-index:-1;}
-.nav{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;border-bottom:1px solid rgba(255,255,255,0.08);}
-.logo{font-size:26px;font-weight:700;background:linear-gradient(90deg,#6aa8ff,#7db0ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;}
-.menu{font-size:32px;cursor:pointer;display:inline-block;}
-.panel{position:fixed;top:0;left:50%;transform:translate(-50%,-120%);width:90%;max-width:400px;background:linear-gradient(180deg,#0b162d,#02060f);border:1px solid rgba(120,150,255,.15);border-radius:20px;padding:30px;transition:transform .6s cubic-bezier(.65,0,.35,1);box-shadow:0 0 40px rgba(0,0,0,.6);z-index:100;}
-.panel.show{transform:translate(-50%,90px);}
-.panel-section{margin-bottom:25px;}
-.panel-section h3{font-size:14px;text-transform:uppercase;color:#6a7d99;margin-bottom:10px;}
-.panel a{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:16px;color:#cdd6ff;text-decoration:none;}
-.panel a:hover{color:#6aa8ff;}
-.container{max-width:650px;width:100%;text-align:center;padding:80px 25px;margin-top:60px;}
-.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(120,160,255,.4);padding:12px 24px;border-radius:40px;margin-bottom:35px;color:#b9c7ff;font-size:16px;background:rgba(30,60,120,.2);}
-.badge-dot{width:8px;height:8px;background:#6aa8ff;border-radius:50%;}
-.title{font-size:64px;font-weight:800;background:linear-gradient(180deg,#a7c9ff,#5f93ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:20px;}
-.subtitle{font-size:20px;letter-spacing:3px;color:#9fb2d8;margin-bottom:30px;}
-.highlight{background:linear-gradient(90deg,#6aa8ff,#3b82ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;}
-.desc{color:#8e9db8;font-size:18px;line-height:1.6;margin-bottom:45px;}
-.secondary{width:100%;padding:18px;font-size:18px;border-radius:14px;background:transparent;border:1px solid rgba(120,150,255,.3);color:#cdd6ff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;}
-.section{max-width:1000px;width:100%;margin:60px auto;padding:0 20px;display:none;}
-.section.active{display:block;}
-.section h1{text-align:center;font-size:48px;font-weight:800;background:linear-gradient(180deg,#a7c9ff,#5f93ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:50px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px;}
-.video-container{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 0 25px rgba(0,0,0,.6);}
-.video-container video{width:100%;height:100%;object-fit:contain;pointer-events:none;}
-.review-list,.tos-list{display:flex;flex-direction:column;gap:20px;}
-.review-card,.tos-card{padding:20px;background:rgba(30,60,120,.3);border-radius:15px;box-shadow:0 0 20px rgba(0,0,0,.5);font-size:18px;}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:30px;margin-top:40px;}
-.cards-grid .card{background:rgba(30,60,120,.3);padding:25px;border-radius:20px;box-shadow:0 0 20px rgba(0,0,0,.5);}
-.cards-grid .card h2{font-size:24px;margin-bottom:15px;color:#6aa8ff;}
-.cards-grid .card p{font-size:16px;color:#cdd6ff;line-height:1.5;}
-#why-zypher-text{text-align:center;margin-top:60px;font-size:28px;font-weight:700;color:#6aa8ff;}
-#action-video{margin-top:30px;height:400px;}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Inter',sans-serif;
+}
+body{
+  min-height:200vh;
+  background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);
+  color:white;
+  overflow-x:hidden;
+}
+.grid{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background-image:
+    linear-gradient(rgba(0,150,255,0.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,150,255,0.08) 1px,transparent 1px);
+  background-size:60px 60px;
+  z-index:0;
+}
+.nav{
+  position:absolute;
+  top:20px;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 20px;
+  z-index:5;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+  font-size:18px;
+}
+.logo img{
+  width:28px;
+  height:28px;
+  object-fit:contain;
+}
+.dashboard-btn{
+  background:#008cff;
+  border:none;
+  color:white;
+  font-size:18px;
+  font-weight:600;
+  padding:12px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(0,140,255,.4);
+  transition:all 0.2s ease;
+}
+.dashboard-btn:hover{
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 8px 25px rgba(0,140,255,.6);
+}
+.container{
+  width:90%;
+  max-width:420px;
+  text-align:center;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-40%);
+  z-index:2;
+}
+.heading-glow{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:450px;
+  height:250px;
+  background:radial-gradient(circle, rgba(0,140,255,0.5) 0%, rgba(0,140,255,0) 70%);
+  filter:blur(100px);
+  z-index:1;
+  pointer-events:none;
+}
+h1{
+  font-size:38px;
+  font-weight:800;
+  line-height:1.2;
+  margin-bottom:10px;
+  position:relative;
+  z-index:2;
+}
+.highlight{
+  color:#00aaff;
+}
+.desc{
+  color:#c8c8c8;
+  font-size:15px;
+  line-height:1.6;
+  margin:25px 0 35px 0;
+  position:relative;
+  z-index:2;
+}
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  position:relative;
+  z-index:2;
+  justify-content:center;
+  align-items:center;
+}
+button{
+  transition:all .2s ease;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+.btn-primary{
+  background:#008cff;
+  padding:20px 40px;
+  border-radius:12px;
+  font-weight:600;
+  font-size:18px;
+  cursor:pointer;
+  border:none;
+  color:white;
+  box-shadow:0 10px 30px rgba(0,140,255,.4);
+}
+.btn-primary:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:0 14px 40px rgba(0,140,255,.6);
+}
+.btn-primary:active{
+  transform:scale(.95);
+}
+.btn-secondary{
+  background:#111318;
+  border:1px solid rgba(255,255,255,.1);
+  padding:20px 40px;
+  border-radius:12px;
+  font-weight:500;
+  font-size:18px;
+  color:#cfcfcf;
+  cursor:pointer;
+}
+.btn-secondary:hover{
+  transform:translateY(-3px) scale(1.02);
+  background:#151820;
+}
+.discord-icon{
+  width:22px;
+  height:22px;
+}
+.arrow{
+  margin-top:40px;
+  font-size:34px;
+  color:#00aaff;
+  animation:bounce 1.5s infinite;
+  position:relative;
+  z-index:2;
+  cursor:pointer;
+}
+@keyframes bounce{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(12px)}
+  100%{transform:translateY(0)}
+}
+.section{
+  margin-top:120vh;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:40px;
+  padding:40px;
+}
+.card{
+  width:320px;
+  height:320px;
+  background:linear-gradient(145deg,#0b1325,#050914);
+  border-radius:20px;
+  padding:20px;
+  border:1px solid rgba(0,140,255,.25);
+  box-shadow:0 0 40px rgba(0,140,255,.15);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.card-icon{
+  width:60px;
+  height:60px;
+  background:rgba(0,140,255,.15);
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+  box-shadow:0 0 20px rgba(0,140,255,.3);
+}
+.card-icon svg{
+  width:28px;
+  height:28px;
+  stroke:#00aaff;
+}
+.card h2{
+  font-size:24px;
+  margin-bottom:12px;
+}
+.card p{
+  color:#a9b3c9;
+  line-height:1.5;
+  font-size:15px;
+}
+
+/* DESKTOP ONLY */
+@media(min-width:1024px){
+  .container{
+    max-width:700px;
+  }
+  h1{
+    font-size:56px;
+  }
+  .desc{
+    font-size:20px;
+  }
+  .buttons{
+    flex-direction:row;
+    gap:25px;
+  }
+  .btn-primary{
+    padding:24px 50px;
+    font-size:22px;
+  }
+  .btn-secondary{
+    padding:24px 50px;
+    font-size:22px;
+  }
+  .card{
+    width:350px;
+    height:350px;
+  }
+  .heading-glow{
+    width:500px;
+    height:300px;
+    filter:blur(120px);
+  }
+  .logo{
+    font-size:20px;
+  }
+  .logo img{
+    width:32px;
+    height:32px;
+  }
+  .discord-icon{
+    width:24px;
+    height:24px;
+  }
+  .arrow{
+    font-size:40px;
+  }
+}
 </style>
 </head>
 <body>
+<div class="grid"></div>
 <div class="nav">
-<div class="logo" onclick="goHome()">ZYPHER</div>
-<span class="material-icons menu" onclick="toggleMenu()">menu</span>
+  <div class="logo">
+    <img src="https://files.catbox.moe/92lfvc.png">
+    Zypher
+  </div>
+  <button class="dashboard-btn" onclick="window.location.href='https://jjjjjj-alpha.vercel.app/'">Dashboard</button>
 </div>
-<div class="panel" id="panel">
-<div class="panel-section">
-<h3>Community</h3>
-<a href="#" onclick="showShowcases()"><i class="fa-solid fa-video"></i>Showcases</a>
-<a href="#" onclick="showReviews()"><i class="fa-solid fa-star"></i>Reviews</a>
-<a href="https://jjjjjj-alpha.vercel.app" target="_blank"><i class="fa-solid fa-tachometer-alt"></i>Dashboard</a>
-</div>
-<div class="panel-section">
-<h3>Legal</h3>
-<a href="#" onclick="showTOS()"><i class="fa-solid fa-file-contract"></i>Terms Of Service</a>
-</div>
-<div class="panel-section">
-<h3>Support</h3>
-<a href="https://discord.gg/PdnmRF7JN4" target="_blank"><i class="fa-brands fa-discord"></i>Discord Server</a>
-</div>
-</div>
-<div class="container" id="landing">
-<div class="badge">
-<div class="badge-dot"></div>
-Trusted by 177+ members
-</div>
-<div class="title">Zypher</div>
-<div class="subtitle">
-THE <span class="highlight">BEST SERVERSIDE</span> ON THE MARKET
-</div>
+
+<div class="container">
+<div class="heading-glow"></div>
+<h1>
+The Premium <br>
+<span class="highlight">Server-Side Solution</span>
+</h1>
 <div class="desc">
-The best internal serverside across 60+ Roblox games, and 24/7 support from moderators.
+The Premium Server-Side Solution and a wide range of scripts in the script library + many infect games.
 </div>
-<a href="https://discord.gg/PdnmRF7JN4" target="_blank">
-<button class="secondary">
-<i class="fa-brands fa-discord"></i>
-Join Community
-</button>
-</a>
-<div id="why-zypher-text">Why Zypher?</div>
-<div class="cards-grid">
+<div class="buttons">
+  <button class="btn-primary">Get Started →</button>
+  <button class="btn-secondary">
+    <img class="discord-icon" src="https://cdn.simpleicons.org/discord/5865F2">
+    Join Community
+  </button>
+</div>
+<div class="arrow">⌄</div>
+</div>
+
+<div class="section">
 <div class="card">
-<h2>Internal Based</h2>
-<p>Zypher is a ingame internal Server-Side that had 0 downloads</p>
+  <div class="card-icon">
+    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+    </svg>
+  </div>
+  <h2>Why it's Premium?</h2>
+  <p>
+    Zypher isn't just any ServerSide it's the Apex Predator of ServerSides it has multiple features including many games to troll in.
+  </p>
 </div>
 <div class="card">
-<h2>How it works?</h2>
-<p>it works by entering a script into the editor then pressing execute then the code will run on the server!</p>
-</div>
-<div class="card">
-<h2>Games</h2>
-<p>We have regular player games but there insanely fun to troll on!</p>
-</div>
-</div>
-<div style="text-align:center;margin-top:50px;font-size:24px;font-weight:700;color:#6aa8ff;">See it in action!</div>
-<div id="action-video" class="video-container">
-<video src="https://cdn.discordapp.com/attachments/1479158504186056798/1482081262385500301/lv_0_20260313182119.mp4?ex=69b5a73c&is=69b455bc&hm=e266d801dfd77994f53a4567a9badf7205de32a3fe41533810cc7f69bf8fb9b1&" autoplay loop muted></video>
-</div>
-</div>
-<div class="section" id="showcases">
-<h1>Showcases</h1>
-<div class="grid">
-<div class="video-container"><iframe src="https://www.youtube.com/embed/jrmmyzVgbyM"></iframe></div>
-<div class="video-container"><iframe src="https://www.youtube.com/embed/Q1oaHGf1Zuc"></iframe></div>
-<div class="video-container"><iframe src="https://www.youtube.com/embed/whdBhQ_2dLU"></iframe></div>
-<div class="video-container"><iframe src="https://www.youtube.com/embed/GS4dL_-XbG4"></iframe></div>
-<div class="video-container"><iframe src="https://www.youtube.com/embed/3tux-bKwBtI"></iframe></div>
+  <div class="card-icon">
+    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 8v4"/>
+      <path d="M12 16h.01"/>
+    </svg>
+  </div>
+  <h2>How it works?</h2>
+  <p>
+    It works by entering a script into the editor then pressing execute then the code will run on the server!
+  </p>
 </div>
 </div>
-<div class="section" id="reviews">
-<h1>Reviews</h1>
-<div class="review-list">
-<div class="review-card">8/10 good mods and owners, decent games, cheap, ui could be a bit better</div>
-<div class="review-card">5/10 Ui good but no good games could be a bit better</div>
-<div class="review-card">BRO THIS IS COOL SHOULD DEFO BUY!</div>
-<div class="review-card">10/10 i dont have it but its soooooo good</div>
-<div class="review-card">Showcasing, it too bright and is too transparent, also the script has 2 copies which bugs me when executing. But its still a 9.6/10 needs a little bit of work</div>
-<div class="review-card">10/10 tuff ui tuff execution</div>
-<div class="review-card">10/10 best logging games ever</div>
-</div>
-</div>
-<div class="section" id="tos">
-<h1>Terms Of Service</h1>
-<div class="tos-list">
-<div class="tos-card">1 - No stealing games for your ss</div>
-<div class="tos-card">2 - No NSFW Scripts (as long as there not too Sexual)</div>
-<div class="tos-card">3 - No Nazi Scripts (Blacklist)</div>
-<div class="tos-card">4 - No Gore Scripts (Blacklist)</div>
-<div class="tos-card">5 - No Snitching (Warn)</div>
-<div class="tos-card">6 - No skiddy guis</div>
-<div class="tos-card">7 - No mass banning/kicking</div>
-<div class="tos-card">8 - No using any other executors other than zypher</div>
-</div>
-</div>
-<script>
-function toggleMenu(){document.getElementById("panel").classList.toggle("show")}
-function showShowcases(){hideAll();document.getElementById("showcases").classList.add("active")}
-function showReviews(){hideAll();document.getElementById("reviews").classList.add("active")}
-function showTOS(){hideAll();document.getElementById("tos").classList.add("active")}
-function goHome(){hideAll();document.getElementById("landing").style.display="block"}
-function hideAll(){document.getElementById("landing").style.display="none";document.getElementById("showcases").classList.remove("active");document.getElementById("reviews").classList.remove("active");document.getElementById("tos").classList.remove("active");document.getElementById("panel").classList.remove("show")}
-</script>
 </body>
   </html>
