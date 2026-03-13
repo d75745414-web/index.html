@@ -6,268 +6,74 @@
 <title>Zypher</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Inter',sans-serif;
-}
-body{
-  min-height:200vh;
-  background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);
-  color:white;
-  overflow-x:hidden;
-}
-.grid{
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;}
+body{min-height:200vh;background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);color:white;overflow-x:hidden;}
+.grid{position:fixed;width:100%;height:100%;background-image:linear-gradient(rgba(0,150,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,150,255,0.08) 1px,transparent 1px);background-size:60px 60px;z-index:0;}
+.nav{position:absolute;top:20px;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:5;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
+.logo img{width:28px;height:28px;object-fit:contain;}
+.dashboard-btn{background:#008cff;border:none;color:white;font-size:18px;font-weight:600;padding:12px 20px;border-radius:12px;cursor:pointer;box-shadow:0 6px 20px rgba(0,140,255,.4);transition:all 0.2s ease;}
+.dashboard-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 25px rgba(0,140,255,.6);}
+.container{width:90%;max-width:420px;text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);z-index:2;}
+.heading-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:250px;background:radial-gradient(circle, rgba(0,140,255,0.5) 0%, rgba(0,140,255,0) 70%);filter:blur(100px);z-index:1;pointer-events:none;}
+h1{font-size:38px;font-weight:800;line-height:1.2;margin-bottom:10px;position:relative;z-index:2;}
+.highlight{color:#00aaff;}
+.desc{color:#c8c8c8;font-size:15px;line-height:1.6;margin:25px 0 35px 0;position:relative;z-index:2;}
+.buttons{display:flex;flex-direction:column;gap:15px;position:relative;z-index:2;justify-content:center;align-items:center;}
+button{transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-primary{background:#008cff;padding:20px 40px;border-radius:12px;font-weight:600;font-size:18px;cursor:pointer;border:none;color:white;box-shadow:0 10px 30px rgba(0,140,255,.4);}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 14px 40px rgba(0,140,255,.6);}
+.btn-primary:active{transform:scale(.95);}
+.btn-secondary{background:#111318;border:1px solid rgba(255,255,255,.1);padding:20px 40px;border-radius:12px;font-weight:500;font-size:18px;color:#cfcfcf;cursor:pointer;}
+.btn-secondary:hover{transform:translateY(-3px) scale(1.02);background:#151820;}
+.discord-icon{width:22px;height:22px;}
+.arrow{margin-top:40px;font-size:34px;color:#00aaff;animation:bounce 1.5s infinite;position:relative;z-index:2;cursor:pointer;}
+@keyframes bounce{0%{transform:translateY(0)}50%{transform:translateY(12px)}100%{transform:translateY(0)}}
+.section{margin-top:120vh;display:flex;justify-content:center;flex-wrap:wrap;gap:40px;padding:40px;}
+.card{width:320px;height:320px;background:linear-gradient(145deg,#0b1325,#050914);border-radius:20px;padding:20px;border:1px solid rgba(0,140,255,.25);box-shadow:0 0 40px rgba(0,140,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.card-icon{width:60px;height:60px;background:rgba(0,140,255,.15);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 20px rgba(0,140,255,.3);}
+.card-icon svg{width:28px;height:28px;stroke:#00aaff;}
+.card h2{font-size:24px;margin-bottom:12px;}
+.card p{color:#a9b3c9;line-height:1.5;font-size:15px;}
+
+/* GET STARTED PAGE */
+#getStartedPage{
+  display:none;
   position:fixed;
-  width:100%;
-  height:100%;
-  background-image:
-    linear-gradient(rgba(0,150,255,0.08) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,150,255,0.08) 1px,transparent 1px);
-  background-size:60px 60px;
-  z-index:0;
-}
-.nav{
-  position:absolute;
-  top:20px;
+  top:0;
   left:0;
   width:100%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 20px;
-  z-index:5;
-}
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:600;
-  font-size:18px;
-}
-.logo img{
-  width:28px;
-  height:28px;
-  object-fit:contain;
-}
-.dashboard-btn{
-  background:#008cff;
-  border:none;
+  height:100%;
+  background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);
   color:white;
-  font-size:18px;
-  font-weight:600;
-  padding:12px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  box-shadow:0 6px 20px rgba(0,140,255,.4);
-  transition:all 0.2s ease;
-}
-.dashboard-btn:hover{
-  transform:translateY(-2px) scale(1.02);
-  box-shadow:0 8px 25px rgba(0,140,255,.6);
-}
-.container{
-  width:90%;
-  max-width:420px;
-  text-align:center;
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-40%);
-  z-index:2;
-}
-.heading-glow{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:450px;
-  height:250px;
-  background:radial-gradient(circle, rgba(0,140,255,0.5) 0%, rgba(0,140,255,0) 70%);
-  filter:blur(100px);
-  z-index:1;
-  pointer-events:none;
-}
-h1{
-  font-size:38px;
-  font-weight:800;
-  line-height:1.2;
-  margin-bottom:10px;
-  position:relative;
-  z-index:2;
-}
-.highlight{
-  color:#00aaff;
-}
-.desc{
-  color:#c8c8c8;
-  font-size:15px;
-  line-height:1.6;
-  margin:25px 0 35px 0;
-  position:relative;
-  z-index:2;
-}
-.buttons{
-  display:flex;
+  z-index:50;
+  overflow-x:hidden;
+  justify-content:center;
+  align-items:center;
   flex-direction:column;
-  gap:15px;
-  position:relative;
-  z-index:2;
-  justify-content:center;
-  align-items:center;
+  padding-top:100px;
 }
-button{
-  transition:all .2s ease;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-}
-.btn-primary{
-  background:#008cff;
-  padding:20px 40px;
-  border-radius:12px;
-  font-weight:600;
-  font-size:18px;
-  cursor:pointer;
-  border:none;
-  color:white;
-  box-shadow:0 10px 30px rgba(0,140,255,.4);
-}
-.btn-primary:hover{
-  transform:translateY(-3px) scale(1.02);
-  box-shadow:0 14px 40px rgba(0,140,255,.6);
-}
-.btn-primary:active{
-  transform:scale(.95);
-}
-.btn-secondary{
-  background:#111318;
-  border:1px solid rgba(255,255,255,.1);
-  padding:20px 40px;
-  border-radius:12px;
-  font-weight:500;
-  font-size:18px;
-  color:#cfcfcf;
-  cursor:pointer;
-}
-.btn-secondary:hover{
-  transform:translateY(-3px) scale(1.02);
-  background:#151820;
-}
-.discord-icon{
-  width:22px;
-  height:22px;
-}
-.arrow{
-  margin-top:40px;
-  font-size:34px;
-  color:#00aaff;
-  animation:bounce 1.5s infinite;
-  position:relative;
-  z-index:2;
-  cursor:pointer;
-}
-@keyframes bounce{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(12px)}
-  100%{transform:translateY(0)}
-}
-.section{
-  margin-top:120vh;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:40px;
-  padding:40px;
-}
-.card{
-  width:320px;
-  height:320px;
-  background:linear-gradient(145deg,#0b1325,#050914);
-  border-radius:20px;
-  padding:20px;
-  border:1px solid rgba(0,140,255,.25);
-  box-shadow:0 0 40px rgba(0,140,255,.15);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-.card-icon{
-  width:60px;
-  height:60px;
-  background:rgba(0,140,255,.15);
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-bottom:20px;
-  box-shadow:0 0 20px rgba(0,140,255,.3);
-}
-.card-icon svg{
-  width:28px;
-  height:28px;
-  stroke:#00aaff;
-}
-.card h2{
-  font-size:24px;
-  margin-bottom:12px;
-}
-.card p{
-  color:#a9b3c9;
-  line-height:1.5;
-  font-size:15px;
-}
+#getStartedPage .cards{display:flex;flex-wrap:wrap;justify-content:center;gap:40px;}
+#getStartedPage .card{width:300px;height:300px;}
+#getStartedPage .card button{margin-top:20px;padding:12px 20px;font-size:16px;font-weight:600;border:none;border-radius:10px;cursor:pointer;background:#008cff;color:white;box-shadow:0 6px 20px rgba(0,140,255,.4);transition:all .2s ease;}
+#getStartedPage .card button:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 25px rgba(0,140,255,.6);}
 
-/* DESKTOP ONLY */
+/* DESKTOP */
 @media(min-width:1024px){
-  .container{
-    max-width:700px;
-  }
-  h1{
-    font-size:56px;
-  }
-  .desc{
-    font-size:20px;
-  }
-  .buttons{
-    flex-direction:row;
-    gap:25px;
-  }
-  .btn-primary{
-    padding:24px 50px;
-    font-size:22px;
-  }
-  .btn-secondary{
-    padding:24px 50px;
-    font-size:22px;
-  }
-  .card{
-    width:350px;
-    height:350px;
-  }
-  .heading-glow{
-    width:500px;
-    height:300px;
-    filter:blur(120px);
-  }
-  .logo{
-    font-size:20px;
-  }
-  .logo img{
-    width:32px;
-    height:32px;
-  }
-  .discord-icon{
-    width:24px;
-    height:24px;
-  }
-  .arrow{
-    font-size:40px;
-  }
+  .container{max-width:700px;}
+  h1{font-size:56px;}
+  .desc{font-size:20px;}
+  .buttons{flex-direction:row;gap:25px;}
+  .btn-primary{padding:24px 50px;font-size:22px;}
+  .btn-secondary{padding:24px 50px;font-size:22px;}
+  .card{width:350px;height:350px;}
+  .heading-glow{width:500px;height:300px;filter:blur(120px);}
+  .logo{font-size:20px;}
+  .logo img{width:32px;height:32px;}
+  .discord-icon{width:24px;height:24px;}
+  .arrow{font-size:40px;}
+  #getStartedPage .cards{flex-wrap:nowrap;}
+  #getStartedPage .card{width:350px;height:350px;}
 }
 </style>
 </head>
@@ -291,13 +97,39 @@ The Premium <br>
 The Premium Server-Side Solution and a wide range of scripts in the script library + many infect games.
 </div>
 <div class="buttons">
-  <button class="btn-primary">Get Started →</button>
-  <button class="btn-secondary">
+  <button class="btn-primary" id="getStartedBtn">Get Started →</button>
+  <button class="btn-secondary" onclick="window.open('https://discord.gg/PdnmRF7JN4','_blank')">
     <img class="discord-icon" src="https://cdn.simpleicons.org/discord/5865F2">
     Join Community
   </button>
 </div>
 <div class="arrow">⌄</div>
+</div>
+
+<div id="getStartedPage">
+  <h1 style="margin-bottom:40px;">Choose Payment Method</h1>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">
+        <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+        </svg>
+      </div>
+      <h2>Robux Payment</h2>
+      <p>Purchase with Gamepass.</p>
+      <button onclick="window.open('https://www.roblox.com/game-pass/1737050115/','_blank')">Go to Gamepass</button>
+    </div>
+    <div class="card">
+      <div class="card-icon">
+        <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+        </svg>
+      </div>
+      <h2>Purchase With PayPal</h2>
+      <p>Purchase with $5 PayPal user is zypherserverside.</p>
+      <button onclick="window.open('https://PayPal.com','_blank')">Take me to PayPal</button>
+    </div>
+  </div>
 </div>
 
 <div class="section">
@@ -326,5 +158,19 @@ The Premium Server-Side Solution and a wide range of scripts in the script libra
   </p>
 </div>
 </div>
+
+<script>
+const getStartedBtn = document.getElementById('getStartedBtn');
+const getStartedPage = document.getElementById('getStartedPage');
+const mainContainer = document.querySelector('.container');
+const mainSection = document.querySelector('.section');
+
+getStartedBtn.addEventListener('click', () => {
+  getStartedPage.style.display = 'flex';
+  mainContainer.style.display = 'none';
+  mainSection.style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
 </body>
-  </html>
+</html>
