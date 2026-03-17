@@ -12,8 +12,14 @@ body{min-height:200vh;background:radial-gradient(circle at center,#001a3d,#0a0a0
 .nav{position:absolute;top:20px;left:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:5;}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;}
 .logo img{width:28px;height:28px;object-fit:contain;}
-.dashboard-btn{background:#008cff;border:none;color:white;font-size:18px;font-weight:600;padding:12px 20px;border-radius:12px;cursor:pointer;box-shadow:0 6px 20px rgba(0,140,255,.4);transition:all 0.2s ease;}
-.dashboard-btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 25px rgba(0,140,255,.6);}
+.menu-btn{width:40px;height:40px;display:flex;flex-direction:column;justify-content:center;gap:6px;cursor:pointer;}
+.menu-btn span{height:3px;background:white;border-radius:2px;display:block;}
+.sidebar{position:fixed;top:0;right:-320px;width:320px;height:100%;background:linear-gradient(145deg,#0b1325,#050914);border-left:1px solid rgba(0,140,255,.2);box-shadow:0 0 40px rgba(0,140,255,.2);padding:30px 20px;transition:.3s;z-index:100;}
+.sidebar.active{right:0;}
+.section-title{margin-top:20px;margin-bottom:10px;font-size:13px;letter-spacing:2px;color:#7f8fb0;}
+.menu-item{display:flex;align-items:center;gap:10px;padding:12px;border-radius:10px;cursor:pointer;color:#cfd8ff;transition:.2s;}
+.menu-item svg{width:18px;height:18px;stroke:#00aaff;}
+.menu-item:hover{background:#111827;color:white;}
 .container{width:90%;max-width:420px;text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-40%);z-index:2;}
 .heading-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:450px;height:250px;background:radial-gradient(circle, rgba(0,140,255,0.5) 0%, rgba(0,140,255,0) 70%);filter:blur(100px);z-index:1;pointer-events:none;}
 h1{font-size:38px;font-weight:800;line-height:1.2;margin-bottom:10px;position:relative;z-index:2;}
@@ -30,147 +36,208 @@ button{transition:all .2s ease;display:flex;align-items:center;justify-content:c
 .arrow{margin-top:40px;font-size:34px;color:#00aaff;animation:bounce 1.5s infinite;position:relative;z-index:2;cursor:pointer;}
 @keyframes bounce{0%{transform:translateY(0)}50%{transform:translateY(12px)}100%{transform:translateY(0)}}
 .section{margin-top:120vh;display:flex;justify-content:center;flex-wrap:wrap;gap:40px;padding:40px;}
-.card{width:320px;height:320px;background:linear-gradient(145deg,#0b1325,#050914);border-radius:20px;padding:20px;border:1px solid rgba(0,140,255,.25);box-shadow:0 0 40px rgba(0,140,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+.card{width:320px;min-height:320px;background:linear-gradient(145deg,#0b1325,#050914);border-radius:20px;padding:20px;border:1px solid rgba(0,140,255,.25);box-shadow:0 0 40px rgba(0,140,255,.15);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
 .card-icon{width:60px;height:60px;background:rgba(0,140,255,.15);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 20px rgba(0,140,255,.3);}
 .card-icon svg{width:28px;height:28px;stroke:#00aaff;}
 .card h2{font-size:24px;margin-bottom:12px;}
-.card p{color:#a9b3c9;line-height:1.5;font-size:15px;}
-
-/* GET STARTED PAGE */
-#getStartedPage{
-  display:none;
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);
-  color:white;
-  z-index:50;
-  overflow-x:hidden;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  padding-top:100px;
-}
-#getStartedPage .cards{display:flex;flex-wrap:wrap;justify-content:center;gap:40px;}
-#getStartedPage .card{width:300px;height:300px;}
-#getStartedPage .card button{margin-top:20px;padding:12px 20px;font-size:16px;font-weight:600;border:none;border-radius:10px;cursor:pointer;background:#008cff;color:white;box-shadow:0 6px 20px rgba(0,140,255,.4);transition:all .2s ease;}
-#getStartedPage .card button:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 8px 25px rgba(0,140,255,.6);}
-
-/* DESKTOP */
-@media(min-width:1024px){
-  .container{max-width:700px;}
-  h1{font-size:56px;}
-  .desc{font-size:20px;}
-  .buttons{flex-direction:row;gap:25px;}
-  .btn-primary{padding:24px 50px;font-size:22px;}
-  .btn-secondary{padding:24px 50px;font-size:22px;}
-  .card{width:350px;height:350px;}
-  .heading-glow{width:500px;height:300px;filter:blur(120px);}
-  .logo{font-size:20px;}
-  .logo img{width:32px;height:32px;}
-  .discord-icon{width:24px;height:24px;}
-  .arrow{font-size:40px;}
-  #getStartedPage .cards{flex-wrap:nowrap;}
-  #getStartedPage .card{width:350px;height:350px;}
-}
+.card p{color:#a9b3c9;line-height:1.5;font-size:15px;white-space:pre-line;}
+#getStartedPage,#showcasesPage,#tosPage{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,#001a3d,#0a0a0a 70%);z-index:60;padding:100px 20px;overflow-y:auto;}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;}
+.video-grid iframe{width:100%;height:180px;border-radius:12px;border:none;}
+.center-wrap{display:flex;justify-content:center;align-items:center;flex-direction:column;}
 </style>
 </head>
 <body>
+
 <div class="grid"></div>
+
 <div class="nav">
-  <div class="logo">
-    <img src="https://files.catbox.moe/92lfvc.png">
-    Zypher
-  </div>
-  <button class="dashboard-btn" onclick="window.location.href='https://jjjjjj-alpha.vercel.app/'">Dashboard</button>
+<div class="logo">
+<img src="https://files.catbox.moe/92lfvc.png">
+Zypher
+</div>
+<div class="menu-btn" onclick="toggleMenu()">
+<span></span><span></span><span></span>
+</div>
 </div>
 
-<div class="container">
-<div class="heading-glow"></div>
-<h1>
-The Premium <br>
-<span class="highlight">Server-Side Solution</span>
-</h1>
-<div class="desc">
-The Premium Server-Side Solution and a wide range of scripts in the script library + many infect games.
+<div class="sidebar" id="sidebar">
+<div class="section-title">COMMUNITY</div>
+
+<div class="menu-item" onclick="window.location.href='https://jjjjjj-alpha.vercel.app/'">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M3 12L12 3L21 12"/>
+<path d="M9 21V9H15V21"/>
+</svg>
+Dashboard
 </div>
+
+<div class="menu-item" onclick="openShowcases()">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<rect x="3" y="3" width="7" height="7"/>
+<rect x="14" y="3" width="7" height="7"/>
+<rect x="14" y="14" width="7" height="7"/>
+<rect x="3" y="14" width="7" height="7"/>
+</svg>
+Showcases
+</div>
+
+<div class="section-title">SUPPORT</div>
+
+<div class="menu-item" onclick="window.open('https://discord.gg/PdnmRF7JN4','_blank')">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M4 4H20V16H5L4 20V4Z"/>
+</svg>
+Discord Server
+</div>
+
+<div class="section-title">LEGAL</div>
+
+<div class="menu-item" onclick="openTOS()">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M6 2H14L20 8V22H6Z"/>
+<path d="M14 2V8H20"/>
+</svg>
+Terms of Service
+</div>
+</div>
+
+<div class="container" id="mainContent">
+<div class="heading-glow"></div>
+<h1>The Premium <br><span class="highlight">Server-Side Solution</span></h1>
+<div class="desc">The Premium Server-Side Solution and a wide range of scripts in the script library + many infect games.</div>
 <div class="buttons">
-  <button class="btn-primary" id="getStartedBtn">Get Started →</button>
-  <button class="btn-secondary" onclick="window.open('https://discord.gg/PdnmRF7JN4','_blank')">
-    <img class="discord-icon" src="https://cdn.simpleicons.org/discord/5865F2">
-    Join Community
-  </button>
+<button class="btn-primary" id="getStartedBtn">Get Started →</button>
+<button class="btn-secondary" onclick="window.open('https://discord.gg/PdnmRF7JN4','_blank')">
+<img class="discord-icon" src="https://cdn.simpleicons.org/discord/5865F2">
+Join Community
+</button>
 </div>
 <div class="arrow">⌄</div>
 </div>
 
-<div id="getStartedPage">
-  <h1 style="margin-bottom:40px;">Choose Payment Method</h1>
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon">
-        <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
-        </svg>
-      </div>
-      <h2>Robux Payment</h2>
-      <p>Purchase with Gamepass.</p>
-      <button onclick="window.open('https://www.roblox.com/game-pass/1737050115/','_blank')">Go to Gamepass</button>
-    </div>
-    <div class="card">
-      <div class="card-icon">
-        <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
-        </svg>
-      </div>
-      <h2>Purchase With PayPal</h2>
-      <p>Purchase with $5 PayPal user is zypherserverside.</p>
-      <button onclick="window.open('https://PayPal.com','_blank')">Take me to PayPal</button>
-    </div>
-  </div>
+<div class="section" id="cardsSection">
+<div class="card">
+<div class="card-icon">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+</svg>
+</div>
+<h2>Why it's Premium?</h2>
+<p>Zypher isn't just any ServerSide it's the Apex Predator of ServerSides it has multiple features including many games to troll in.</p>
 </div>
 
-<div class="section">
 <div class="card">
-  <div class="card-icon">
-    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-      <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
-    </svg>
-  </div>
-  <h2>Why it's Premium?</h2>
-  <p>
-    Zypher isn't just any ServerSide it's the Apex Predator of ServerSides it has multiple features including many games to troll in.
-  </p>
+<div class="card-icon">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"/>
+<path d="M12 8v4"/>
+<path d="M12 16h.01"/>
+</svg>
 </div>
+<h2>How it works?</h2>
+<p>It works by entering a script into the editor then pressing execute then the code will run on the server!</p>
+</div>
+</div>
+
+<div id="showcasesPage">
+<div class="video-grid">
+<iframe src="https://www.youtube.com/embed/jrmmyzVgbyM"></iframe>
+<iframe src="https://www.youtube.com/embed/Q1oaHGf1Zuc"></iframe>
+<iframe src="https://www.youtube.com/embed/whdBhQ_2dLU"></iframe>
+<iframe src="https://www.youtube.com/embed/d1Q9SG4uvPM"></iframe>
+<iframe src="https://www.youtube.com/embed/GS4dL_-XbG4"></iframe>
+<iframe src="https://www.youtube.com/embed/3tux-bKwBtI"></iframe>
+<iframe src="https://www.youtube.com/embed/pQPORUbCngI"></iframe>
+<iframe src="https://www.youtube.com/embed/UZPFbnPGWBA"></iframe>
+</div>
+</div>
+
+<div id="tosPage" class="center-wrap">
 <div class="card">
-  <div class="card-icon">
-    <svg fill="none" stroke-width="2" viewBox="0 0 24 24">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 8v4"/>
-      <path d="M12 16h.01"/>
-    </svg>
-  </div>
-  <h2>How it works?</h2>
-  <p>
-    It works by entering a script into the editor then pressing execute then the code will run on the server!
-  </p>
+<div class="card-icon">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M6 2H14L20 8V22H6Z"/>
+<path d="M14 2V8H20"/>
+</svg>
+</div>
+<h2>Terms Of Service</h2>
+<p>1 - No stealing games for your ServerSide
+2 - No NSFW Scripts
+3 - No Nazi Scripts
+4 - No Gore Scripts
+5 - No Snitching in the games
+6 - No skiddy guis
+7 - No mass banning/kicking
+8 - No External Executors
+9 - No Map Destroy Scripts</p>
+</div>
+</div>
+
+<div id="getStartedPage" class="center-wrap">
+<h1 style="margin-bottom:40px;">Choose Payment Method</h1>
+<div style="display:flex;gap:40px;flex-wrap:wrap;justify-content:center;">
+<div class="card">
+<div class="card-icon">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+</svg>
+</div>
+<h2>Robux Payment</h2>
+<p>Purchase with Gamepass.</p>
+<button onclick="window.open('https://www.roblox.com/game-pass/1737050115/','_blank')">Go to Gamepass</button>
+</div>
+
+<div class="card">
+<div class="card-icon">
+<svg fill="none" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8Z"/>
+</svg>
+</div>
+<h2>Purchase With PayPal</h2>
+<p>Purchase with $5 PayPal user is zypherserverside.</p>
+<button onclick="window.open('https://PayPal.com','_blank')">Take me to PayPal</button>
+</div>
 </div>
 </div>
 
 <script>
-const getStartedBtn = document.getElementById('getStartedBtn');
-const getStartedPage = document.getElementById('getStartedPage');
-const mainContainer = document.querySelector('.container');
-const mainSection = document.querySelector('.section');
+function toggleMenu(){
+document.getElementById('sidebar').classList.toggle('active')
+}
 
-getStartedBtn.addEventListener('click', () => {
-  getStartedPage.style.display = 'flex';
-  mainContainer.style.display = 'none';
-  mainSection.style.display = 'none';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+function hideAll(){
+document.getElementById('mainContent').style.display='none'
+document.getElementById('cardsSection').style.display='none'
+document.getElementById('showcasesPage').style.display='none'
+document.getElementById('tosPage').style.display='none'
+document.getElementById('getStartedPage').style.display='none'
+document.getElementById('sidebar').classList.remove('active')
+}
+
+function openShowcases(){
+hideAll()
+document.getElementById('showcasesPage').style.display='block'
+}
+
+function openTOS(){
+hideAll()
+document.getElementById('tosPage').style.display='flex'
+}
+
+document.getElementById('getStartedBtn').onclick=function(){
+hideAll()
+document.getElementById('getStartedPage').style.display='flex'
+}
+
+document.addEventListener('click',function(e){
+const sidebar=document.getElementById('sidebar')
+const btn=document.querySelector('.menu-btn')
+if(!sidebar.contains(e.target)&&!btn.contains(e.target)){
+sidebar.classList.remove('active')
+}
+})
 </script>
+
 </body>
-</html>
+  </html>
